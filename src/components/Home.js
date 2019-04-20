@@ -9,27 +9,44 @@ class Home extends React.Component {
     this.state = {
       data: {}
     }
+
+      this.handleSubmit = this.handleSubmit.bind(this)
+      this.handleChange = this.handleChange.bind(this)
   }
 
-  getWeather() {
-    return this.state.data.weather.map(info => info.description).join(', ')
-  }
 
-  componentDidMount() {
-    axios.get('https://api.openweathermap.org/data/2.5/weather?q=London,uk&&units=metric&APPID=d45d5ac55809a97a37f2ee2613045b17', this.state.data)
+  handleChange(e) {
+      const data = ({ ...this.state.data, [e.target.name ]: e.target.value })
+      console.log(this.state.data)
+      this.setState({ data: data })
+    }
 
-      .then(res => this.setState({data: res.data}))
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.history.push('/weather')
   }
 
   render() {
-    if(!this.state.data.weather) return null
-    else console.log(this.state.data.weather)
 
     return(
       <section className="section">
-        <div>{this.state.data.name}</div>
-        <div>{this.getWeather()}</div>
-        <div>{this.state.data.main.temp}</div>
+        <div className="container">
+          <div className="columns">
+            <div className="column">
+              <form onSubmit={this.handleSubmit}>
+                <div className="control">
+                  <input
+                    className="input"
+                    name="search"
+                    placeholder="Search for a city"
+                    onChange={this.handleChange}/>
+                </div>
+                <button className="button is-black">Search</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
       </section>
     )
   }

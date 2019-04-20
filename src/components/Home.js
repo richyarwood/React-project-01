@@ -1,5 +1,7 @@
 import React from 'react'
-import axios from 'axios'
+import axios from'axios'
+
+import WeatherResults from './WeatherResults'
 
 class Home extends React.Component {
 
@@ -10,24 +12,24 @@ class Home extends React.Component {
       data: {}
     }
 
-      this.handleSubmit = this.handleSubmit.bind(this)
-      this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
 
   handleChange(e) {
-      const data = ({ ...this.state.data, [e.target.name ]: e.target.value })
-      console.log(this.state.data)
-      this.setState({ data: data })
-    }
+    const data = ({ ...this.state.data, [e.target.name ]: e.target.value })
+    console.log(this.state.data)
+    this.setState({ data: data })
+  }
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.history.push('/weather')
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.data.search}&&units=metric&APPID=d45d5ac55809a97a37f2ee2613045b17`, this.state.data)
+      .then(res => this.setState({data: res.data}))
   }
 
   render() {
-
     return(
       <section className="section">
         <div className="container">
@@ -43,7 +45,7 @@ class Home extends React.Component {
                 </div>
                 <button className="button is-black">Search</button>
               </form>
-
+              <WeatherResults {...this.state.data} />
             </div>
           </div>
         </div>

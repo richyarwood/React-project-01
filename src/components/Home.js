@@ -16,17 +16,20 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('https://api.openweathermap.org/data/2.5/weather?q=London,uk&&units=imperial&APPID=d45d5ac55809a97a37f2ee2613045b17', this.state.data)
+    axios.get('https://api.openweathermap.org/data/2.5/weather?q=London,uk&&units=metric&APPID=d45d5ac55809a97a37f2ee2613045b17', this.state.data)
 
       .then(res => this.setState({data: res.data}))
   }
 
   render() {
     if(!this.state.data.weather) return null
+    else console.log(this.state.data.weather)
+
     return(
       <section className="section">
         <div>{this.state.data.name}</div>
         <div>{this.getWeather()}</div>
+        <div>{this.state.data.main.temp}</div>
       </section>
     )
   }

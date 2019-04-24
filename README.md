@@ -1,2 +1,2 @@
-# React-project-01
+# OpenWeather API - React app
 A simple React application consuming open source APIs.

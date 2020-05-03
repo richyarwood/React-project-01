@@ -25,9 +25,7 @@ class WeatherResults extends React.Component {
 
 
   render(){
-    console.log(this.props)
     if(!this.props.weather) return null
-    else console.log(this.props.weather)
     return(
       <section className="section">
         <div className="tile is-ancestor">
